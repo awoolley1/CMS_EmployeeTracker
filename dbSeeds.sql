@@ -16,11 +16,16 @@ id INTEGER(1) AUTO_INCREMENT NOT NULL,
 );
 
 CREATE TABLE department(
-
-
+id INTEGER(1) AUTO_INCREMENT NOT NULL,
+name VARCHAR(30),
+PRIMARY KEY (id)
 );
 
 CREATE TABLE roles(
-
-
+id INTEGER(1) AUTO_INCREMENT NOT NULL,
+title VARCHAR(30),
+salary DECIMAL,
+department_id INTEGER
+PRIMARY KEY (id)
+FOREIGN KEY (department_id) REFERENCES department(id)
 );
