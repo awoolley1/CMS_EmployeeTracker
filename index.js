@@ -1,17 +1,18 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
+require('dotenv').config()
 
 var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "",
+  password: process.env.PASSWORD,
   database: "employeetracker_db",
 });
 
 connection.connect(function (err) {
   if (err) throw err;
-  //runPrompt();
+  runPrompt();
 });
 
 function runPrompt() {
@@ -62,3 +63,26 @@ function runPrompt() {
       }
     });
 }
+
+function addDepartment() {
+    inquirer
+      .prompt({
+        name: "department",
+        type: "input",
+        message: "What department would you like to add?"
+      })
+      .then(function(answer) {
+        var query = "INSERT INTO department (name) VALUES (?)";
+
+
+    
+        connection.query(query, answer.department, function(err, res) {
+            if (err) throw err;
+
+            console.log("Added to database");
+
+            runPrompt();
+       
+        });
+      });
+  }
