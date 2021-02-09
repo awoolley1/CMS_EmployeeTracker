@@ -127,3 +127,48 @@ function addDepartment() {
       });
   }
   
+
+  const addEmployeeQuestions = [
+    {
+      name: "employeefn",
+      type: "input",
+      message: "What is the first name of the employee you would like to add?"
+    },
+    
+    {
+      name: "employeeln",
+      type: "input",
+      message: "What is the last name of the employee you would like to add?"
+    },
+    
+    {
+      name: "employeerid",
+      type: "number",
+      message: "What is the role ID of the employee you would like to add?"
+    },
+
+    {
+      name: "employeemid",
+      type: "number",
+      message: "What is the manager/department ID of the employee you would like to add?"
+    }
+  ];
+  
+  function addEmployee() {
+    inquirer
+      .prompt(addEmployeeQuestions)
+      .then(function(answer2) {
+        var query = "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)";
+
+
+    
+        connection.query(query, [answer2.employeefn, answer2.employeeln, answer2.employeerid, answer2.employeemid], function(err, res) {
+            if (err) throw err;
+
+            console.log("Added to database");
+
+            runPrompt();
+       
+        });
+      });
+  }
