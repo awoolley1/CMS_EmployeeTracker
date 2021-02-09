@@ -42,11 +42,11 @@ function runPrompt() {
           break;
 
         case "Add employee":
-          addEmployee();
+          addEmployees();
           break;
 
         case "View department":
-          viewDepartment();
+          viewDepartments();
           break;
 
         case "View role":
@@ -54,7 +54,7 @@ function runPrompt() {
           break;
 
         case "View employee":
-          viewEmployee();
+          viewEmployees();
           break;
 
         case "Update role for an existing employee":
@@ -154,7 +154,7 @@ function addDepartment() {
     }
   ];
   
-  function addEmployee() {
+  function addEmployees() {
     inquirer
       .prompt(addEmployeeQuestions)
       .then(function(answer2) {
@@ -184,3 +184,27 @@ function addDepartment() {
             runPrompt();
       });
   }
+
+  function viewDepartments() {
+    var query = "SELECT * FROM department";
+
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+
+        console.table(res);
+
+        runPrompt();
+  });
+}
+
+function viewEmployees() {
+  var query = "SELECT * FROM employee";
+
+  connection.query(query, function(err, res) {
+      if (err) throw err;
+
+      console.table(res);
+
+      runPrompt();
+});
+}
