@@ -50,7 +50,7 @@ function runPrompt() {
           break;
 
         case "View role":
-          viewRole();
+          viewRoles();
           break;
 
         case "View employee":
@@ -170,5 +170,17 @@ function addDepartment() {
             runPrompt();
        
         });
+      });
+  }
+
+  function viewRoles() {
+        var query = "SELECT * FROM roles";
+    
+        connection.query(query, function(err, res) {
+            if (err) throw err;
+
+            console.table(res);
+
+            runPrompt();
       });
   }
