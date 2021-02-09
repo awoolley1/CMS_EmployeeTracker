@@ -208,3 +208,37 @@ function viewEmployees() {
       runPrompt();
 });
 }
+
+
+const updateRoleQuestions = [
+  {
+    name: "updateemployee",
+    type: "number",
+    message: "What is the ID of the employee whose role you would like to update?"
+  },
+  
+  {
+    name: "updateerole",
+    type: "number",
+    message: "What is the new role ID you would like to assign to the employee?"
+  },
+];
+
+function updateEmployee() {
+  inquirer
+    .prompt(updateRoleQuestions)
+    .then(function(answer5) {
+      var query = "UPDATE employee SET role_id = ? WHERE id = ?";
+
+
+  
+      connection.query(query, [answer5.updaterole, answer5.updateemployee], function(err, res) {
+          if (err) throw err;
+
+          console.log("Updated role");
+
+          runPrompt();
+     
+      });
+    });
+}
