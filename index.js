@@ -87,4 +87,43 @@ function addDepartment() {
       });
   }
 
+
+  const addRoleQuestions = [
+    {
+      name: "role",
+      type: "input",
+      message: "What is the title of the role you would like to add?"
+    },
+    
+    {
+      name: "rolesal",
+      type: "number",
+      message: "What is the salary of the role you would like to add?"
+    },
+    
+    {
+      name: "roledep",
+      type: "number",
+      message: "What is the department ID of the role you would like to add?"
+    }
+  ];
+  
+  function addRole() {
+    inquirer
+      .prompt(addRoleQuestions)
+      .then(function(answer1) {
+        var query = "INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)";
+
+
+    
+        connection.query(query, [answer1.role, answer1.rolesal, answer1.roledep], function(err, res) {
+            if (err) throw err;
+
+            console.log("Added to database");
+
+            runPrompt();
+       
+        });
+      });
+  }
   
